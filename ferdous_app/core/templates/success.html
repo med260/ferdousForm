@@ -1,0 +1,158 @@
+{% extends 'base.html' %} {% block content %}
+  <style>
+    .success-container {
+      text-align: center;
+      padding: 40px 20px;
+      direction: rtl;
+    }
+    .success-icon {
+      font-size: 80px;
+      color: #28a745;
+      margin-bottom: 20px;
+      display: inline-block;
+      animation: scaleUp 0.5s ease-out;
+    }
+    @keyframes scaleUp {
+      0% {
+        transform: scale(0);
+      }
+      80% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    .success-title {
+      color: var(--primary-green);
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .success-message {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+    
+    /* تحسين بطاقة المعلومات */
+    .info-card {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 0 auto 40px;
+      max-width: 800px;
+      border: 1px solid #f0f0f0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+    .info-item {
+      text-align: center;
+      padding: 15px;
+      position: relative;
+    }
+    .info-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      height: 60%;
+      width: 1px;
+      background: #eee;
+    }
+    .info-item i {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .info-item span {
+      display: block;
+      color: var(--primary-green);
+      font-weight: 800;
+      font-size: 1.4rem;
+    }
+    .info-item label {
+      font-size: 0.85rem;
+      color: #999;
+      font-weight: 600;
+    }
+    
+    /* الأزرار */
+    .actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .btn-action {
+      padding: 15px 35px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: 0.3s;
+    }
+    .btn-primary {
+      background: var(--primary-green);
+      color: white;
+    }
+    .btn-secondary {
+      background: #f8f9fa;
+      color: var(--primary-green);
+      border: 1px solid #eee;
+    }
+    .btn-action:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .info-card {
+        grid-template-columns: 1fr;
+      }
+      .info-item:not(:last-child)::after {
+        display: none;
+      }
+      .info-item {
+        border-bottom: 1px solid #eee;
+      }
+      .actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <div class="success-container">
+    <div class="success-icon">✅✅✅</div>
+    <h1 class="success-title">تم الحفظ بنجاح</h1>
+    <p class="success-message">بارك الله فيكم، تم تسجيل البيانات في نظام مركز الفردوس</p>
+
+    <div class="info-card">
+      <div class="info-item">
+        <i></i>
+        <!-- لاحظ استخدام teacher.name لأننا أرسلنا كائن اسمه teacher -->
+        <span>{{ teacher.name|default:'غير مسجل' }}</span>
+        <label>اسم المعلم</label>
+      </div>
+
+      <div class="info-item">
+        <i></i>
+        <span>{{ teacher.students.count|default:'0' }}</span>
+        <label>عدد الطلاب</label>
+      </div>
+
+      <div class="info-item">
+        <i></i>
+        <span>{{ teacher.teacher_id|default:'TCH-XXX' }}</span>
+        <label>كود المعلم</label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="/teacher/" class="btn-action btn-primary">معلم جديد</a>
+      <a href="/" class="btn-action btn-secondary">الرئيسية</a>
+    </div>
+  </div>
+{% endblock %}

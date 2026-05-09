@@ -1,0 +1,157 @@
+{% extends "base.html" %} {% block content %}
+<style>
+    /* تحسين التصميم العام */
+    .form-container {
+        max-width: 450px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        direction: rtl;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-weight: 700;
+        border-bottom: 2px solid #093509;
+        padding-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* تنسيق الحقول والقوائم */
+    input, select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 15px;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+        text-align: right;
+    }
+
+    input:focus, select:focus {
+        border-color: #4A90E2;
+        background-color: #fff;
+        outline: none;
+        box-shadow: 0 0 8px rgba(74, 144, 226, 0.2);
+    }
+
+    /* تنسيق الراديو (معلم / معلمة) */
+    .gender-group {
+        display: flex;
+        gap: 20px;
+        background: #f8f9fa;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .gender-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .gender-option input {
+        width: auto;
+        cursor: pointer;
+    }
+
+    /* زر الإرسال */
+    button {
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #168b38 0%, #0d7819 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+    }
+</style>
+
+<div class="form-container">
+    <h2>تسجيل بيانات المعلمين والطلاب </h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label>الاسم الكامل بالعربية</label>
+            <input type="text" name="name" placeholder="أدخل اسمك هنا..." required>
+        </div>
+
+        <div class="form-group">
+            <label>النوع</label>
+            <div class="gender-group">
+                <label class="gender-option">
+                    <input type="radio" name="gender" value="male" checked> معلم
+                </label>
+                <label class="gender-option">
+                    <input type="radio" name="gender" value="female"> معلمة
+                </label>
+            </div>
+        </div>
+
+      <div class="form-group">
+         <label>تاريخ الميلاد</label>
+       <!-- تم إضافة max="2015-12-31" لمنع اختيار أي تاريخ بعد نهاية عام 2015 -->
+         <input type="date" name="dob" max="2015-12-31" required>
+      <small style="color: #888; font-size: 0.75rem; display: block; margin-top: 5px;">
+        يجب أن يكون تاريخ الميلاد في عام 2015 أو ما قبله.
+           </small>
+      </div>
+
+        <div class="form-group">
+            <label>الرقم القومي (14 رقم)</label>
+            <input type="text" name="national_id" placeholder="00000000000000" required pattern="\d{14}" maxlength="14" title="يجب إدخال 14 رقمًا">
+        </div>
+
+        <div class="form-group">
+            <label> رقم الهاتف</label>
+            <input type="text" name="phone_number" placeholder="رقم واتساب" required pattern="\d{11}" maxlength="11" title="مسجل بالواتساب">
+        </div>
+
+
+        <div class="form-group">
+          <label>اسم الحلقة / الفصل</label>
+          <input type="text" name="class_name" placeholder="مثال: فصل خالد بن الوليد" dir="rtl">
+        </div>
+
+       <div class="form-group">
+         <label>عدد الطلاب </label>
+         <input type="number" name="num_students" placeholder="0" required min="0" max="50">
+        <small style="color: #888; font-size: 0.75rem; display: block; margin-top: 5px;">
+        أقصى عدد مسموح به هو 50 طالب.
+        </small>
+        </div>
+
+        <button type="submit">حفظ ومتابعة</button>
+    </form>
+</div>
+{% endblock %}

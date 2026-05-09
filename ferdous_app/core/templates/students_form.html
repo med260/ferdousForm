@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-green);
+    }
+    
+    /* Each student entry acts as a row */
+    .student-row {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .student-number {
+      min-width: 100px;
+      font-weight: bold;
+      color: var(--secondary-gold);
+      margin: 0;
+    }
+    
+    /* Flex items to grow equally */
+    .input-group {
+      flex: 1;
+    }
+    
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .submit-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    .btn-submit {
+      padding: 12px 40px;
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: opacity 0.3s;
+    }
+    
+    .btn-submit:hover {
+      opacity: 0.9;
+    }
+    
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
+    }
+    
+    /* Responsive: Stack inputs on small screens */
+    @media (max-width: 600px) {
+      .student-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .student-number {
+        margin-bottom: 5px;
+      }
+    }
+  </style>
+
+  <h2 class="form-header">Students Registration</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    {% for i in count %}
+      <div class="student-row">
+        <p class="student-number">الطالب {{ forloop.counter }}</p>
+
+        <div class="input-group">
+          <input type="text" name="student_name" placeholder="الاسم الكامل للطالب" required />
+        </div>
+        {% comment %}
+        <div class="input-group">
+          <input type="text" name="memorized_juz" placeholder="Memorized Juz" required />
+        </div> {% endcomment %}
+
+        <div class="input-group">
+          <input name="parent_phone" placeholder="رقم هاتف ولي الامر " required />
+        </div>
+
+        <div class="input-group">
+          <select name="memorized_juz" id="id_memorized_juz" required>
+            <option value="" disabled selected>عدد الأجزاء المحفوظة</option>
+            {% for i in '0123456789012345678901234567890'|make_list %}
+              <option value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="submit-container">
+      <button type="submit" class="btn-submit">Complete Registration</button>
+    </div>
+  </form>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+  <h2>Students Form</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    {% for i in count %}
+      <h4>Student {{ forloop.counter }}</h4>
+
+      <input name="student_name" placeholder="Name" required /><br />
+
+      <input name="memorized_juz" placeholder="Memorized Juz" required /><br /><br />
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %} {% endcomment %}

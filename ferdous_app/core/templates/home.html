@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .welcome-container {
+      text-align: center;
+      padding: 40px 10px;
+      direction: rtl; /* Sets text flow to Right-to-Left */
+    }
+    
+    .welcome-container h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      color: var(--primary-green);
+    }
+    
+    .welcome-container .subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    
+    /* The Button Styling */
+    .btn-start {
+      display: inline-block;
+      background-color: var(--primary-green);
+      color: white !important; /* Ensures text stays white */
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none; /* Removes the underline */
+      border-radius: 50px; /* Rounded pill shape */
+      border: 2px solid var(--primary-green);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(45, 90, 39, 0.2);
+    }
+    
+    .btn-start:hover {
+      background-color: transparent;
+      color: var(--primary-green) !important;
+      transform: translateY(-3px); /* Slight lift effect */
+      box-shadow: 0 6px 20px rgba(45, 90, 39, 0.3);
+    }
+    
+    /* Decorative element under the title */
+    .divider {
+      width: 100px;
+      height: 3px;
+      background-color: var(--secondary-gold);
+      margin: 20px auto 30px;
+      border-radius: 2px;
+    }
+  </style>
+
+  <div class="welcome-container">
+    <h1>مركز الفردوس لتحفيظ القرآن</h1>
+    <div class="divider"></div>
+    <p class="subtitle">استبيان وجمع معلومات للمعلمين والطلاب</p>
+
+    <br />
+
+    <a href="/teacher/" class="btn-start">ابدأ بتسجيل البيانات</a>
+  </div>
+{% endblock %}

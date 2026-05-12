@@ -8,10 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================
 # SECURITY
 # ======================
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-change-this-in-production"
-)
+SECRET_KEY = "#bxik__z@p%b2zfx6=^(rf@^zv0^om1&@c$4d58jq=#ar$r6j@"
 
 DEBUG = False
 
